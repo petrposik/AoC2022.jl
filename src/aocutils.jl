@@ -1,6 +1,19 @@
 using Base: readlines
 using Base: ==
 
+function parse_char_pair(line::AbstractString)
+    parts = split(line, limit=2)
+    @assert length(parts[1]) == 1
+    @assert length(parts[2]) == 1
+    return (parts[1][1], parts[2][1])
+end
+
+function parse_char_pairs(fpath::AbstractString)
+    lines = readlines(fpath)
+    return [parse_char_pair(line) for line in lines]
+end
+
+
 function parse_matrix(io)
     rows = []
     for line in eachline(io)
@@ -11,12 +24,12 @@ end
 
 function parse_point(s::AbstractString)
     nums = split(s, ',')
-    return [parse(Int, nums[1])+1, parse(Int, nums[2])+1]
+    return [parse(Int, nums[1]) + 1, parse(Int, nums[2]) + 1]
 end
 
 struct Segment
-    p1 :: Vector{Int}
-    p2 :: Vector{Int}
+    p1::Vector{Int}
+    p2::Vector{Int}
 end
 
 function parse_segment(s::AbstractString)
@@ -59,7 +72,7 @@ mutable struct Bingo
     boards::Vector{Matrix{Int}}
 end
 
-parse_ints_from_row(str; sep = " ") = parse.(Int, split(str, sep, keepempty = false))
+parse_ints_from_row(str; sep=" ") = parse.(Int, split(str, sep, keepempty=false))
 
 function parse_bingo(fpath::AbstractString)
     segments = parse_parts(fpath)
@@ -88,7 +101,7 @@ function parseints(fpath::AbstractString)
 end
 
 function parsecommand(line::AbstractString)
-    parts = split(line, limit = 2)
+    parts = split(line, limit=2)
     return (parts[1], parseint(parts[2]))
 end
 
