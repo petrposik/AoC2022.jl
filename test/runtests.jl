@@ -3,6 +3,11 @@ using AoC2022
 
 @testset "AoC2022" begin
 
+    @testset "Day 1" begin
+        @test AoC2022.day01("../data/test_input01.txt") == (24000, 45000)
+        @test AoC2022.day01("../data/input01.txt") == (69528, 206152)
+    end
+
     @testset "Day 2" begin
         @test AoC2022.score('A', 'Y') == 8
         @test AoC2022.score('B', 'X') == 1
@@ -14,15 +19,28 @@ using AoC2022
         @test AoC2022.day02("../data/input02.txt") == (10404, 10334)
     end
 
-    @testset "Day 1" begin
-        @test AoC2022.day01("../data/test_input01.txt") == (24000, 45000)
-        @test AoC2022.day01("../data/input01.txt") == (69528, 206152)
+    @testset "Day 3" begin
+        @test AoC2022.priority('p') == 16
+        @test AoC2022.priority('L') == 38
+        @test AoC2022.priority('P') == 42
+        @test AoC2022.priority('v') == 22
+        @test AoC2022.priority('t') == 20
+        @test AoC2022.priority('s') == 19
+        @test AoC2022.priority("vJrwpWtwJgWrhcsFMMfFFhFp") == 16
+        @test AoC2022.priority("jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL") == 38
+        @test AoC2022.priority("PmmdzqPrVvPwwTWBwg") == 42
+        @test AoC2022.priority("wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn") == 22
+        @test AoC2022.priority("ttgJtRGJQctTZtZT") == 20
+        @test AoC2022.priority("CrZsJsPPZsGzwwsLwLmpwMDw") == 19
+        @test AoC2022.badge(["vJrwpWtwJgWrhcsFMMfFFhFp",
+            "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+            "PmmdzqPrVvPwwTWBwg"]) == 'r'
+        @test AoC2022.badge(["wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+            "ttgJtRGJQctTZtZT",
+            "CrZsJsPPZsGzwwsLwLmpwMDw"]) == 'Z'
+        @test AoC2022.day03("../data/test_input03.txt") == (157, 70)
+        @test AoC2022.day03("../data/input03.txt") == (7746, 2604)
     end
-
-    # @testset "Day 3" begin
-    #     @test AoC2022.day03("../data/test_input03.txt") == (198, 230)
-    #     @test AoC2022.day03("../data/input03.txt") == (4139586, 1800151)
-    # end
 
     # @testset "Day 4" begin
     #     @test AoC2022.day04("../data/test_input04.txt") == (4512, 1924)
