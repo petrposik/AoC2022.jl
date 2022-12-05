@@ -1,6 +1,7 @@
 using Base: readlines
 using Base: ==
 
+
 function parse_char_pair(line::AbstractString)
     parts = split(line, limit=2)
     @assert length(parts[1]) == 1

@@ -42,10 +42,22 @@ using AoC2022
         @test AoC2022.day03("../data/input03.txt") == (7746, 2604)
     end
 
-    # @testset "Day 4" begin
-    #     @test AoC2022.day04("../data/test_input04.txt") == (4512, 1924)
-    #     @test AoC2022.day04("../data/input04.txt") == (10680, 31892)
-    # end
+    @testset "Day 4" begin
+        @test AoC2022.contains("6-6", "4-6") == false
+        @test AoC2022.contains("4-6", "6-6") == true
+        @test AoC2022.overlap("3-5", "4-6") == true
+        @test AoC2022.overlap("4-6", "3-5") == true
+        @test AoC2022.overlap("1-3", "4-6") == false
+        @test AoC2022.overlap("4-6", "1-3") == false
+        @test AoC2022.overlap("4-4", "4-6") == true
+        @test AoC2022.overlap("4-6", "4-4") == true
+        @test AoC2022.overlap("6-6", "4-6") == true
+        @test AoC2022.overlap("4-6", "6-6") == true
+        @test AoC2022.overlap("1-4", "2-3") == true
+        @test AoC2022.overlap("2-3", "1-4") == true
+        @test AoC2022.day04("../data/test_input04.txt") == (2, 4)
+        @test AoC2022.day04("../data/input04.txt") == (573, 867)
+    end
 
     # @testset "Day 5" begin
     #     @test AoC2022.parse_point("123,456") == [124, 457] # Intentionally add 1
