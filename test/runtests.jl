@@ -64,16 +64,20 @@ using AoC2022
         @test AoC2022.day05("../data/input05.txt") == ("MQTPGLLDN", "LVZPSTTCZ")
     end
 
-    # @testset "Day 6" begin
-    #     @test AoC2022.step_ages([3, 4, 3, 1, 2]) == [1, 1, 2, 1, 0, 0, 0, 0, 0]
-    #     @test AoC2022.step_ages([2, 3, 2, 0, 1]) == [1, 2, 1, 0, 0, 0, 1, 0, 1]
-    #     @test AoC2022.step_counters([0, 0, 0, 1, 1, 3, 2, 2, 1]) == [0, 0, 1, 1, 3, 2, 2, 1, 0]
-    #     @test AoC2022.step_counters([1, 3, 2, 2, 1, 0, 1, 0, 1]) == [3, 2, 2, 1, 0, 1, 1, 1, 1]
-    #     @test sum(AoC2022.step_n_ages(18, [3, 4, 3, 1, 2])) == 26
-    #     @test sum(AoC2022.step_n_ages(80, [3, 4, 3, 1, 2])) == 5934
-    #     @test AoC2022.day06("../data/test_input06.txt") == (5934, 26984457539)
-    #     @test AoC2022.day06("../data/input06.txt") == (379414, 1705008653296)
-    # end
+    @testset "Day 6" begin
+        @test AoC2022.find_packet_marker("mjqjpqmgbljsphdztnvjfqwrcgsmlb") == 7
+        @test AoC2022.find_packet_marker("bvwbjplbgvbhsrlpgdmjqwftvncz") == 5
+        @test AoC2022.find_packet_marker("nppdvjthqldpwncqszvftbrmjlhg") == 6
+        @test AoC2022.find_packet_marker("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 10
+        @test AoC2022.find_packet_marker("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 11
+        @test AoC2022.find_message_marker("mjqjpqmgbljsphdztnvjfqwrcgsmlb") == 19
+        @test AoC2022.find_message_marker("bvwbjplbgvbhsrlpgdmjqwftvncz") == 23
+        @test AoC2022.find_message_marker("nppdvjthqldpwncqszvftbrmjlhg") == 23
+        @test AoC2022.find_message_marker("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 29
+        @test AoC2022.find_message_marker("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 26
+        @test AoC2022.day06("../data/test_input06.txt") == (7, 19)
+        @test AoC2022.day06("../data/input06.txt") == (1042, nothing)
+    end
 
     # @testset "Day 7" begin
     #     positions = [16, 1, 2, 0, 4, 2, 7, 1, 2, 14]
