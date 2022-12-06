@@ -59,13 +59,10 @@ using AoC2022
         @test AoC2022.day04("../data/input04.txt") == (573, 867)
     end
 
-    # @testset "Day 5" begin
-    #     @test AoC2022.parse_point("123,456") == [124, 457] # Intentionally add 1
-    #     @test AoC2022.parse_segment("123,456 -> 78,9") == AoC2022.Segment([124, 457], [79, 10])
-    #     @test length(AoC2022.parse_segments("../data/test_input05.txt")) == 10
-    #     @test AoC2022.day05("../data/test_input05.txt") == (5, 12)
-    #     @test AoC2022.day05("../data/input05.txt") == (4728, 17717)
-    # end
+    @testset "Day 5" begin
+        @test AoC2022.day05("../data/test_input05.txt") == ("CMZ", "MCD")
+        @test AoC2022.day05("../data/input05.txt") == ("MQTPGLLDN", "LVZPSTTCZ")
+    end
 
     # @testset "Day 6" begin
     #     @test AoC2022.step_ages([3, 4, 3, 1, 2]) == [1, 1, 2, 1, 0, 0, 0, 0, 0]
