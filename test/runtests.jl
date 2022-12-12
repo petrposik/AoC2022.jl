@@ -76,15 +76,42 @@ using AoC2022
         @test AoC2022.find_message_marker("nznrnfrfntjfmvfwmzdfjlvtqnbhcprsg") == 29
         @test AoC2022.find_message_marker("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw") == 26
         @test AoC2022.day06("../data/test_input06.txt") == (7, 19)
-        @test AoC2022.day06("../data/input06.txt") == (1042, nothing)
+        @test AoC2022.day06("../data/input06.txt") == (1042, 2980)
     end
 
-    # @testset "Day 7" begin
-    #     positions = [16, 1, 2, 0, 4, 2, 7, 1, 2, 14]
-    #     @test AoC2022.day07b(positions) == 168
-    #     @test AoC2022.day07("../data/test_input07.txt") == (37, 168)
-    #     @test AoC2022.day07("../data/input07.txt") == (328187, 91257582)
-    # end
+    @testset "Day 7" begin
+        # root = AoC2022.Dir("/", [
+        #     AoC2022.Dir("a", [
+        #         AoC2022.File("a.txt", 1)]),
+        #     AoC2022.File("b.txt", 1)])
+        # @test AoC2022.size(root) == 2
+        # @test AoC2022.size(root, "/") == 2
+        # @test AoC2022.size(root, "a") == 1
+        # @test AoC2022.size(root, "a.txt") == 1
+        # @test AoC2022.size(root, "b.txt") == 1
+        input = IOBuffer("""\$ cd /
+        \$ ls
+        dir a
+        1 b.txt
+        \$ cd a
+        \$ ls
+        1 a.txt
+        \$ cd ..
+        """)
+        parsed = AoC2022.parse_fs(input)
+        @test AoC2022.size(parsed) == 2
+        @test AoC2022.size(parsed, "/") == 2
+        @test AoC2022.size(parsed, "a") == 1
+        @test AoC2022.size(parsed, "a.txt") == 1
+        @test AoC2022.size(parsed, "b.txt") == 1
+        root = AoC2022.parse_fs(open("../data/test_input07.txt"))
+        @test AoC2022.size(root, "e") == 584
+        @test AoC2022.size(root, "a") == 94853
+        @test AoC2022.size(root, "d") == 24933642
+        @test AoC2022.size(root, "/") == 48381165
+        @test AoC2022.day07("../data/test_input07.txt") == (95437, 24933642)
+        @test AoC2022.day07("../data/input07.txt") == (1307902, 7068748)
+    end
 
     # @testset "Day 8" begin
     #     signals = AoC2022.normalize.(split("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab"))
