@@ -115,7 +115,6 @@ function day07b(root::Dir)
     free = 70000000 - used
     to_be_freed = 30000000 - free
     sizes = list_all_dirs_greater_than(root, to_be_freed)
-    # @show sizes
     minimum(sizes)
 end
 
