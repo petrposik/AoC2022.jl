@@ -80,15 +80,6 @@ using AoC2022
     end
 
     @testset "Day 7" begin
-        # root = AoC2022.Dir("/", [
-        #     AoC2022.Dir("a", [
-        #         AoC2022.File("a.txt", 1)]),
-        #     AoC2022.File("b.txt", 1)])
-        # @test AoC2022.size(root) == 2
-        # @test AoC2022.size(root, "/") == 2
-        # @test AoC2022.size(root, "a") == 1
-        # @test AoC2022.size(root, "a.txt") == 1
-        # @test AoC2022.size(root, "b.txt") == 1
         input = IOBuffer("""\$ cd /
         \$ ls
         dir a
@@ -113,16 +104,10 @@ using AoC2022
         @test AoC2022.day07("../data/input07.txt") == (1307902, 7068748)
     end
 
-    # @testset "Day 8" begin
-    #     signals = AoC2022.normalize.(split("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab"))
-    #     quartets = AoC2022.normalize.(split("cdfeb fcadb cdfeb cdbaf"))
-    #     correct_encoding = Dict("abcdefg" => 8, "bcdef" => 5, "acdfg" => 2, "abcdf" => 3, "abd" => 7,
-    #         "abcdef" => 9, "bcdefg" => 6, "abef" => 4, "abcdeg" => 0, "ab" => 1)
-    #     @test AoC2022.find_encoding(signals) == correct_encoding
-    #     @test AoC2022.decode(correct_encoding, quartets) == 5353
-    #     @test AoC2022.day08("../data/test_input08.txt") == (26, 61229)
-    #     @test AoC2022.day08("../data/input08.txt") == (495, 1055164)
-    # end
+    @testset "Day 8" begin
+        @test AoC2022.day08("../data/test_input08.txt") == (21, 8)
+        @test AoC2022.day08("../data/input08.txt") == (1789, 314820)
+    end
 
     # @testset "Day 9" begin
     #     m = AoC2022.parse_matrix("../data/test_input09.txt")

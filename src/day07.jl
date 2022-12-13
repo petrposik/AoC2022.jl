@@ -21,10 +21,10 @@ end
 
 File(name::AbstractString, size::Int) = File(name, nothing, size)
 
-size(f::File) = f.size
-size(d::Dir) = sum(size(item) for item in values(d.items))
-size(f::File, s::AbstractString) = f.name == s ? size(f) : nothing
-function size(d::Dir, s::AbstractString)
+Base.size(f::File) = f.size
+Base.size(d::Dir) = sum(size(item) for item in values(d.items))
+Base.size(f::File, s::AbstractString) = f.name == s ? size(f) : nothing
+function Base.size(d::Dir, s::AbstractString)
     if d.name == s
         return size(d)
     end

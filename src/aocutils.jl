@@ -20,7 +20,7 @@ function parse_matrix(io)
     for line in eachline(io)
         push!(rows, parse.(Int8, collect(line)))
     end
-    return transpose(hcat(rows...))
+    return Matrix(transpose(hcat(rows...)))
 end
 
 function parse_point(s::AbstractString)
