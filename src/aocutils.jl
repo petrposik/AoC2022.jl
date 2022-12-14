@@ -2,6 +2,12 @@ using Base: readlines
 using Base: ==
 
 
+function parse_string_pairs(fpath::AbstractString)
+    lines = readlines(fpath)
+    return [split(line, limit=2) for line in lines]
+end
+
+
 function parse_char_pair(line::AbstractString)
     parts = split(line, limit=2)
     @assert length(parts[1]) == 1
