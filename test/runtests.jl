@@ -1,6 +1,23 @@
 using Test
 using AoC2022
 
+day10_test_output = """##..##..##..##..##..##..##..##..##..##..
+###...###...###...###...###...###...###.
+####....####....####....####....####....
+#####.....#####.....#####.....#####.....
+######......######......######......####
+#######.......#######.......#######.....
+"""
+
+day10_output = """####..##..#....#..#.###..#....####...##.
+#....#..#.#....#..#.#..#.#....#.......#.
+###..#....#....####.###..#....###.....#.
+#....#.##.#....#..#.#..#.#....#.......#.
+#....#..#.#....#..#.#..#.#....#....#..#.
+####..###.####.#..#.###..####.#.....##..
+"""
+
+
 @testset "AoC2022" begin
 
     @testset "Day 1" begin
@@ -114,11 +131,112 @@ using AoC2022
         @test AoC2022.day09("../data/input09.txt") == (5858, 2602)
     end
 
-    # @testset "Day 10" begin
-    #     @test AoC2022.closing_score("}}]])})]") == 288957
-    #     @test AoC2022.day10("../data/test_input10.txt") == (26397, 288957)
-    #     @test AoC2022.day10("../data/input10.txt") == (216297, 2165057169)
-    # end
+    @testset "Day 10" begin
+
+        @testset "CPU" begin
+            program = AoC2022.parse_string_pairs("../data/test_input10_small.txt")
+            expected_instructions = [
+                AoC2022.Instruction(0, "noop", 0),
+                AoC2022.Instruction(1, "addx", 3),
+                AoC2022.Instruction(1, "addx", -5)
+            ]
+            @test program |> AoC2022.to_instructions == expected_instructions
+            cpu = AoC2022.CPU()
+            AoC2022.load_program!(cpu, program)
+            @test cpu.x == 1
+            @test cpu.elapsed_cycles == 0
+            # At the start of the first cycle, the noop instruction begins execution. 
+            # During the first cycle, X is 1. After the first cycle, 
+            # the noop instruction finishes execution, doing nothing.
+            AoC2022.cycle!(cpu)
+            @test cpu.x == 1
+            @test cpu.elapsed_cycles == 1
+            # At the start of the second cycle, the addx 3 instruction begins execution. 
+            # During the second cycle, X is still 1.
+            AoC2022.cycle!(cpu)
+            @test cpu.x == 1
+            @test cpu.elapsed_cycles == 2
+            # During the third cycle, X is still 1. 
+            # After the third cycle, the addx 3 instruction finishes execution, setting X to 4.
+            AoC2022.cycle!(cpu)
+            @test cpu.x == 4
+            @test cpu.elapsed_cycles == 3
+            # At the start of the fourth cycle, the addx -5 instruction begins execution. 
+            # During the fourth cycle, X is still 4.
+            AoC2022.cycle!(cpu)
+            @test cpu.x == 4
+            @test cpu.elapsed_cycles == 4
+            # During the fifth cycle, X is still 4. 
+            # After the fifth cycle, the addx -5 instruction finishes execution, setting X to -1.
+            AoC2022.cycle!(cpu)
+            @test cpu.x == -1
+            @test cpu.elapsed_cycles == 5
+
+            # Signal strength
+            program = AoC2022.parse_string_pairs("../data/test_input10.txt")
+            cpu = AoC2022.CPU()
+            AoC2022.load_program!(cpu, program)
+            # During the 20th cycle, register X has the value 21, 
+            # so the signal strength is 20 * 21 = 420. 
+            AoC2022.cycle!(cpu, 20)
+            @test cpu.elapsed_cycles == 20
+            @test cpu.last_x == 21
+            @test AoC2022.signal_strength(cpu) == 20 * 21
+            # During the 60th cycle, register X has the value 19, so the signal strength is 60 * 19 = 1140.
+            AoC2022.cycle!(cpu, 60)
+            @test cpu.elapsed_cycles == 60
+            @test cpu.last_x == 19
+            @test AoC2022.signal_strength(cpu) == 60 * 19
+            # During the 100th cycle, register X has the value 18, so the signal strength is 100 * 18 = 1800.
+            AoC2022.cycle!(cpu, 100)
+            @test cpu.elapsed_cycles == 100
+            @test cpu.last_x == 18
+            @test AoC2022.signal_strength(cpu) == 100 * 18
+            # During the 140th cycle, register X has the value 21, so the signal strength is 140 * 21 = 2940.
+            AoC2022.cycle!(cpu, 140)
+            @test cpu.elapsed_cycles == 140
+            @test cpu.last_x == 21
+            @test AoC2022.signal_strength(cpu) == 140 * 21
+            # During the 180th cycle, register X has the value 16, so the signal strength is 180 * 16 = 2880.
+            AoC2022.cycle!(cpu, 180)
+            @test cpu.elapsed_cycles == 180
+            @test cpu.last_x == 16
+            @test AoC2022.signal_strength(cpu) == 180 * 16
+            # During the 220th cycle, register X has the value 18, so the signal strength is 220 * 18 = 3960.
+            AoC2022.cycle!(cpu, 220)
+            @test cpu.elapsed_cycles == 220
+            @test cpu.last_x == 18
+            @test AoC2022.signal_strength(cpu) == 220 * 18
+        end
+
+        @testset "CRT" begin
+            crt = AoC2022.CRT()
+            program = AoC2022.parse_string_pairs("../data/test_input10.txt")
+            AoC2022.load_program!(crt, program)
+            @test join(crt.pixels) == ""
+            @test AoC2022.sprite_position(crt) == 1
+            # Cycle 1
+            AoC2022.cycle!(crt)
+            @test join(crt.pixels) == "#"
+            @test AoC2022.sprite_position(crt) == 1
+            # Cycle 2
+            AoC2022.cycle!(crt)
+            @test join(crt.pixels) == "##"
+            @test AoC2022.sprite_position(crt) == 16
+            # Cycle 3
+            AoC2022.cycle!(crt)
+            @test join(crt.pixels) == "##."
+            @test AoC2022.sprite_position(crt) == 16
+            # Cycle 3
+            AoC2022.cycle!(crt)
+            @test join(crt.pixels) == "##.."
+            @test AoC2022.sprite_position(crt) == 5
+
+        end
+
+        @test AoC2022.day10("../data/test_input10.txt") == (13140, day10_test_output)
+        @test AoC2022.day10("../data/input10.txt") == (13920, day10_output)
+    end
 
     # @testset "Day 11" begin
     #     state0 = AoC2022.parse_matrix(IOBuffer("11111\n19991\n19191\n19991\n11111"))
