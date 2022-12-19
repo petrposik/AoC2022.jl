@@ -13,6 +13,6 @@ include("day08.jl")
 include("day09.jl")
 include("CPU.jl")
 include("day10.jl")
-# include("day11.jl")
+include("day11.jl")
 
 end # module

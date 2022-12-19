@@ -238,12 +238,8 @@ day10_output = """####..##..#....#..#.###..#....####...##.
         @test AoC2022.day10("../data/input10.txt") == (13920, day10_output)
     end
 
-    # @testset "Day 11" begin
-    #     state0 = AoC2022.parse_matrix(IOBuffer("11111\n19991\n19191\n19991\n11111"))
-    #     state1 = AoC2022.parse_matrix(IOBuffer("34543\n40004\n50005\n40004\n34543"))
-    #     AoC2022.step!(state0)
-    #     @test state0 == state1
-    #     @test AoC2022.day11("../data/test_input11.txt") == (1656, 195)
-    #     @test AoC2022.day11("../data/input11.txt") == (1757, 422)
-    # end
+    @testset "Day 11" begin
+        @test AoC2022.day11("../data/test_input11.txt") == (10605, nothing)
+        @test AoC2022.day11("../data/input11.txt") == (98280, nothing)
+    end
 end

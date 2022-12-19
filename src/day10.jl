@@ -15,7 +15,7 @@ function day10b(program)
     AoC2022.cycle!(crt, 240)
     io = IOBuffer()
     print(io, crt)
-    print(crt)
+    # print(crt)
     return String(take!(io))
 end
 
