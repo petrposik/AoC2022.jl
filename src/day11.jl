@@ -89,24 +89,25 @@ function parse_monkey_group(io::IO)
     group
 end
 
-function run_round!(group::MonkeyGroup)
+function run_round!(group::MonkeyGroup, update_item::Function)
     for monkey in group.monkeys
         while !isempty(monkey.items)
             (item, target_monkey) = inspect_item!(monkey, group.division_const)
-            push!(group.monkeys[target_monkey].items, item % group.modulus)
+            push!(group.monkeys[target_monkey].items, update_item(item))
         end
     end
     group.n_rounds += 1
 end
 
-function advance_rounds!(group::MonkeyGroup, target::Int)
+function advance_rounds!(group::MonkeyGroup, target::Int, update_item::Function=x -> x)
     while group.n_rounds < target
-        run_round!(group)
+        run_round!(group, update_item)
     end
 end
 
 
 function day11a(group)
+    group.division_const = 3
     advance_rounds!(group, 20)
     insp = inspections(group)
     sort!(insp)
@@ -116,7 +117,7 @@ end
 
 function day11b(group)
     group.division_const = 1
-    advance_rounds!(group, 10000)
+    advance_rounds!(group, 10000, x -> x % group.modulus)
     insp = inspections(group)
     sort!(insp)
     return insp[end-1] * insp[end]
