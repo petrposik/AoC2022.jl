@@ -239,7 +239,12 @@ day10_output = """####..##..#....#..#.###..#....####...##.
     end
 
     @testset "Day 11" begin
-        @test AoC2022.day11("../data/test_input11.txt") == (10605, nothing)
-        @test AoC2022.day11("../data/input11.txt") == (98280, nothing)
+        @test AoC2022.day11("../data/test_input11.txt") == (10605, 2713310158)
+        @test AoC2022.day11("../data/input11.txt") == (98280, 17673687232)
+    end
+
+    @testset "Day 12" begin
+        @test AoC2022.day12("../data/test_input12.txt") == (31, 29)
+        @test AoC2022.day12("../data/input12.txt") == (447, 446)
     end
 end
